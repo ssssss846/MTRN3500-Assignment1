@@ -16,9 +16,9 @@ using namespace System::Net::Sockets;
 ref class EmbeddedFunctions {
 public:
 	// TODO: complete this function.
-	EmbeddedFunctions() {}
+	EmbeddedFunctions();
 	// TODO: complete this function.
-	~EmbeddedFunctions() {}
+	~EmbeddedFunctions();
 
 	/**
 	* Open a connection to a Galil Controller.
@@ -29,7 +29,7 @@ public:
 	* @throws error if one occurs.
 	*/
 	// TODO: complete this function.
-	void GOpen(String^ address, const int port) {}
+	void GOpen(String^ address, const int port);
 
 	/**
 	* Closes a connection to a Galil Controller.
@@ -39,7 +39,7 @@ public:
 	* @throws error if one occurs.
 	*/
 	// TODO: complete this function.
-	void GClose() {}
+	void GClose();
 
 	/**
 	* Performs a *command-and-response* transaction on the connection.
@@ -52,8 +52,10 @@ public:
 	* @throws error if one occurs.
 	*/
 	// TODO: complete this function.
-	String^ GCommand(String^ command) { return ""; }
+	String^ GCommand(String^ command);
 
 private:
 	// Add any additional member variables and functions as required
+	TcpClient^ client; 
+	NetworkStream^ stream; 
 };
