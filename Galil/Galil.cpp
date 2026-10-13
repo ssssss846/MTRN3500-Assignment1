@@ -79,7 +79,6 @@ void Galil::DigitalOutput(uint16_t value)
 	);
 }
 
-
 // Write to one byte, either high or low byte, as specified by user in 'bank'
 void Galil::DigitalByteOutput(bool bank, uint8_t value) 
 {
@@ -158,7 +157,6 @@ uint16_t Galil::DigitalInput()
 	return inputVal;
 }
 
-
 // Read either high or low byte, as specified by user in 'bank'
 uint8_t Galil::DigitalByteInput(bool bank)
 {
@@ -167,11 +165,9 @@ uint8_t Galil::DigitalByteInput(bool bank)
 	if (bank == 0) {
 		return inputs & 0xFF; 
 	} else { 
-		return (inputs >> 8) & 0XFF; 
+		return (inputs >> 8) & 0xFF; 
 	}
 }
-
-
 
 // Read single bit from current digital inputs. 
 bool Galil::DigitalBitInput(uint8_t bit)					
@@ -190,13 +186,11 @@ bool Galil::DigitalBitInput(uint8_t bit)
 	return std::stod(buffer) != 0; 
 }
 
-
 // Check the string response from the Galil to check that the last command executed correctly
 bool Galil::CheckSuccessfulWrite()
 {
 	return writeStatus == G_NO_ERROR; 
 }
-
 
 // ANALOG FUNCITONS
 // Read Analog channel and return voltage	
@@ -221,7 +215,6 @@ float Galil::AnalogInput(uint8_t channel)
 
 	return std::stof(buffer);
 }
-
 
 // Write to any channel of the Galil, send voltages as 2 decimal place in the command string
 void Galil::AnalogOutput(uint8_t channel, double voltage)
@@ -248,7 +241,6 @@ void Galil::AnalogOutput(uint8_t channel, double voltage)
 		&bytesReturned
 	);
 }
-
 
 // Configure the range of the input channel with the desired range code
 void Galil::AnalogInputRange(uint8_t channel, uint8_t range)
@@ -289,7 +281,6 @@ void Galil::WriteEncoder()
 	);
 }
 
-
 // Read from motor Encoder (encoder channel 0)
 int Galil::ReadEncoder()
 {
@@ -316,13 +307,11 @@ void Galil::setSetPoint(int s)
 	setPoint = s; 
 }
 
-
 // Gets the current setpoint stored in the class
 double Galil::getSetPoint()
 {
 	return setPoint; 
 }
-
 
 // Set the proportional gain of the controller used in controlLoop() of Position/SpeedControl
 void Galil::setKp(double gain)
@@ -330,13 +319,11 @@ void Galil::setKp(double gain)
 	ControlParameters[0] = gain; 
 }
 
-
 // Gets the current proportional gain stored in the class
 double Galil::getKp()
 {
 	return ControlParameters[0];
 }
-
 
 // Set the integral gain of the controller used in controlLoop()  of Position/SpeedControl
 void Galil::setKi(double gain)
@@ -351,13 +338,11 @@ double Galil::getKi()
 	return ControlParameters[1];
 }
 
-
 // Set the derivative gain of the controller used in controlLoop()  of Position/SpeedControl
 void Galil::setKd(double gain)
 {
 	ControlParameters[2] = gain;
 }
-
 
 // Gets the current derivative gain stored in the class
 double Galil::getKd()
@@ -400,6 +385,7 @@ Galil& Galil::operator=(const Galil& other)
 
 	setPoint = other.setPoint; 
 	address_ = other.address_; 
+	writeStatus = other.writeStatus;
 
 	Functions = new EmbeddedFunctions(); 
 	ownedFunctions = Functions; 
