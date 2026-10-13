@@ -379,4 +379,31 @@ std::ostream& operator<<(std::ostream& output, Galil& galil) {
 	return output;
 }
 
+// Copy assignment operator. 
+Galil& Galil::operator=(const Galil& other) 
+{
+	if (this == &other) {
+		return *this; 
+	}
 
+	if (Functions != nullptr && g != nullptr) {
+		Functions->GClose(g); 
+		g = nullptr; 
+	}
+
+	delete ownedFunctions; 
+	ownedFunctions = nullptr; 
+
+	ControlParameters[0] = other.ControlParameters[0]; 
+	ControlParameters[1] = other.ControlParameters[1];
+	ControlParameters[2] = other.ControlParameters[2];
+
+	setPoint = other.setPoint; 
+	address_ = other.address_; 
+
+	Functions = new EmbeddedFunctions(); 
+	ownedFunctions = Functions; 
+
+	writeStatus = Functions->GOpen(address_.c_str(), &g); 
+	return *this; 
+}
